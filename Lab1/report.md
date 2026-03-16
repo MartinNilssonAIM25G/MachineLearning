@@ -18,8 +18,8 @@ The MovieLens dataset consists of approximately 86,000 movies, 280,000 users and
 The figure below summarizes several distributional properties of the dataset that motivated preprocessing and modeling decisions.
 
 <p align="center">
-  <img src="eda_overview.png" alt="EDA overview" width="70%">
-</p>
+  <img src="figures/eda_overview.png" alt="EDA overview" width="70%">
+</
 <p align="center"><em>Figure 1. Overview of rating distributions and sparsity patterns in the MovieLens dataset.</em></p>
 
 The rating distribution shows a clear selection bias, with higher ratings occurring more frequently than lower ratings and 4.0 being the most common value. 
@@ -49,7 +49,6 @@ $$score = 0.40 \cdot s_{tfidf} + 0.40 \cdot s_{svd} + 0.20 \cdot s_{rating}$$
 The Bayesian weighted rating was included as a quality signal to prevent poorly rated movies from appearing among the top recommendations despite high similarity scores. For movies not present in the SVD matrix, the collaborative filtering component was omitted and the remaining components combined proportionally. The weights were selected through empirical evaluation across several representative queries, including *Toy Story*, *Star Wars: Episode IV*, and *The Devil Wears Prada*.
 
 The main hyperparameters used in the final model are summarized below.
-
 | Parameter | Value | Motivation |
 |---|---|---|
 | `ngram_range` | (1,2) | Captures multi-word concepts such as *science fiction* |
@@ -71,6 +70,7 @@ The recommender system was evaluated using both qualitative examples and quantit
 | *Toy Story* | Unrelated films | *The Wild*, *Puss in Boots* | *Toy Story 2*, *Toy Story 3* | *Toy Story 2*, *Toy Story 3*, *A Bug's Life* |
 | *Star Wars: Episode IV* | Unrelated films | *Logan's Run*, *Superman* | *Star Wars V*, *Star Wars VI* | *Star Wars V*, *Star Wars VI*, *Raiders of the Lost Ark* |
 | *The Devil Wears Prada* | Unrelated films | *Angel in Cracow*, *Late Autumn* | *Julie & Julia*, *The Intern* | *Legally Blonde*, *Easy A*, *The Intern* |
+
 *Qualitative comparison of recommendation approaches across representative movie queries.*
 
 The hybrid recommender produced the most consistent and relevant recommendations across all queries. For *Toy Story*, the system returned closely related Pixar and animated family films. For *Star Wars: Episode IV*, the model identified both franchise sequels and related adventure films such as *Raiders of the Lost Ark*, reflecting shared audience preferences rather than only genre similarity. For *The Devil Wears Prada*, recommendations such as *Legally Blonde* and *Easy A* captured the tone and audience of the query film.
