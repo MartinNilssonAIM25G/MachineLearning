@@ -1,4 +1,4 @@
-# Movie Recommendation System
+# MachineLearning# Movie Recommendation System
 
 This project implements a hybrid movie recommender system using the MovieLens dataset.  
 The system combines content-based filtering using TF-IDF representations of movie genres and tags with collaborative filtering based on Truncated SVD.
