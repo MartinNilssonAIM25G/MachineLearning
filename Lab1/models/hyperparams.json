@@ -1,0 +1,27 @@
+{
+  "tfidf": {
+    "max_features": 50000,
+    "ngram_range": [
+      1,
+      2
+    ],
+    "sublinear_tf": true,
+    "min_df": 2,
+    "max_df": 0.95
+  },
+  "svd": {
+    "n_components": 100,
+    "max_users": 130000,
+    "min_user_ratings": 50,
+    "min_movie_ratings": 100
+  },
+  "hybrid": {
+    "tfidf_weight": 0.4,
+    "svd_weight": 0.4,
+    "rating_weight": 0.2,
+    "bayesian_m": 50
+  },
+  "recommendation": {
+    "k_recommendations": 5
+  }
+}
