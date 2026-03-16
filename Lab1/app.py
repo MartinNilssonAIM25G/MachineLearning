@@ -112,6 +112,7 @@ def minmax(x):
     rng = x.max() - x.min()
     return (x - x.min()) / rng if rng else pd.Series(0.0, index=x.index)  
 
+"""Generate hybrid recommendations using TF-IDF similarity,SVD similarity, and Bayesian weighted ratings."""
 def recommend_hybrid(
         movie_id: int, 
         k: int = K_RECOMMENDATIONS, 
@@ -299,7 +300,6 @@ def update_movie(movie_id):
                 children=[
                     html.H3(title),
                     html.Div(f"Genres: {genres}"),
-                    html.Div(f"movieId: {movie_id}", style={"opacity": 0.7, "marginTop": "8px"}),
                 ]
             ),
         ],
