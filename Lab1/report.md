@@ -19,7 +19,7 @@ The figure below summarizes several distributional properties of the dataset tha
 
 <p align="center">
   <img src="figures/eda_overview.png" alt="EDA overview" width="70%">
-</
+</p>
 <p align="center"><em>Figure 1. Overview of rating distributions and sparsity patterns in the MovieLens dataset.</em></p>
 
 The rating distribution shows a clear selection bias, with higher ratings occurring more frequently than lower ratings and 4.0 being the most common value. 
@@ -38,11 +38,11 @@ where $R$ is the movie average rating, $n$ the number of ratings, $C$ the global
 
 Several recommendation approaches were explored during development. A simple genre-based baseline was first implemented to establish a reference point, followed by a KNN model using binary genre vectors. Both approaches produced poor results — the baseline returned unrelated films and the KNN model was limited by the coarse granularity of genre labels. These limitations motivated the development of a hybrid model combining content-based and collaborative filtering.
 
-Content-based filtering was implemented using TF-IDF vectorization of a content string constructed by concatenating each movie's genre labels and user-provided tags. Bigrams were included (`ngram_range = (1,2)`) to capture multi-word concepts such as *science fiction*, and sublinear term frequency scaling was applied to reduce the influence of frequently repeated terms. TF-IDF weighting was preferred over simple term frequency to give more weight to rarer, more discriminative terms. Movie similarity was computed using cosine similarity between TF-IDF vectors.
+Content-based filtering was implemented using TF-IDF vectorization of a content string constructed by concatenating each movie's genre labels and user-provided tags. Bigrams were included (`ngram_range = (1,2)`) to capture multi-word concepts such as *science fiction*, and sublinear term frequency scaling was applied to reduce the influence of frequently repeated terms. TF-IDF weighting was preferred over simple term frequency to give greater weight to less frequent terms. Movie similarity was computed using cosine similarity between TF-IDF vectors.
 
 Collaborative filtering was implemented using Truncated SVD. A sparse user–item matrix was constructed and ratings were mean-centered per user prior to decomposition to remove individual rating bias. Truncated SVD computes a low-rank approximation of the user–item rating matrix, where each movie is represented by a vector in a reduced-dimensional factor space. Movie similarity was then computed using cosine similarity between these vectors. Only users with at least 50 ratings and movies with at least 100 ratings were included in training, and the number of latent components was set to 100 after empirical evaluation.
 
-To combine the strengths of both approaches, a hybrid scoring function was used. Each component score was normalized to $[0,1]$ using min–max scaling prior to combination, and a Bayesian weighted rating was included as a quality signal to prevent poorly rated movies from appearing among the top recommendations.
+To combine the strengths of both approaches, a hybrid scoring function was used. Each component score was normalized to $[0,1]$ using min–max scaling prior to combination.
 
 $$score = 0.40 \cdot s_{tfidf} + 0.40 \cdot s_{svd} + 0.20 \cdot s_{rating}$$
 
@@ -73,7 +73,7 @@ The recommender system was evaluated using both qualitative examples and quantit
 
 *Qualitative comparison of recommendation approaches across representative movie queries.*
 
-The hybrid recommender produced the most consistent and relevant recommendations across all queries. For *Toy Story*, the system returned closely related Pixar and animated family films. For *Star Wars: Episode IV*, the model identified both franchise sequels and related adventure films such as *Raiders of the Lost Ark*, reflecting shared audience preferences rather than only genre similarity. For *The Devil Wears Prada*, recommendations such as *Legally Blonde* and *Easy A* captured the tone and audience of the query film.
+The hybrid recommender produced the most consistent and relevant recommendations across all queries. For *Toy Story*, the system returned closely related Pixar and animated family films. For *Star Wars: Episode IV*, the model identified both franchise sequels and related adventure films such as *Raiders of the Lost Ark*, the recommender returned both franchise sequels. For *The Devil Wears Prada*, recommendations such as *Legally Blonde* and *Easy A* captured the tone and audience of the query film.
 
 The collaborative filtering component was evaluated quantitatively using an 80/20 train–test split. The SVD model achieved a root mean squared error (RMSE) of 0.875 on the test set, indicating reasonable predictive accuracy given the sparsity of the rating matrix.
 
